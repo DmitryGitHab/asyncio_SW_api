@@ -33,6 +33,7 @@ async def get_people(session, people_id):
 
 
 async def main():
+    unit_list = []
     async with aiohttp.ClientSession() as session:
         # check_health_task = asyncio.create_task(check_health(session))
         coroutines = (get_people(session, i) for i in range(1, unit_count+1))
@@ -40,6 +41,7 @@ async def main():
             result = await asyncio.gather(*coroutines_chunk)
             for item in result:
                 print(item)
+                unit_list.append(item)
         # await check_health_task
         print('code after check_health')
 
